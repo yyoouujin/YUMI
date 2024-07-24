@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="fruit" data-group="divFruit">
+    <div class="child" data-name="apple"><span>사과</span><button data-no="f1">선택</button><span>동생사과</span></div>
+    <div class="child" data-name="banana"><span>바나나</span><button data-no="f2">선택</button></div>
+    <div class="child" data-name="grape"><span>포도</span><button data-no="f3">선택</button></div>
+  </div>
+<script>
+  /*
+
+  */
+
+  //버튼 클릭했을때만 나오게!
+  fruit.addEventListener('click', function(){
+    if(event.target.tagName == 'BUTTON') {
+
+      /*
+      1)
+      data-* 데이터속성은 여러개 넣을 수 있다
+      dataset은 모든 데이터 속성을 가르킨다
+      태그.dataset.속성 = “값”
+      data-no="f1" -> dataset은 data속성을 가져온다
+      
+      //alert(event.target.dataset.no + '클릭됨!');
+      //alert(`${event.target.dataset.no} 클릭됨!`);
+      */
+
+      /*
+      2)
+      previousElementSibling : 형
+      nextElementSibling : 동생
+      태그한 버튼의 형 노드의 내용을 가져온다
+      (document.querySelector('button').previousElementSibling.innerHTML)
+
+      //alert(event.target.previousElementSibling.innerHTML + ' 클릭됨!');
+      //alert(event.target.nextElementSibling.innerHTML + ' 클릭됨!');
+      */
+
+      /*
+      3)
+      parentElement : 부모
+
+      //alert(event.target.parentElement.dataset.name);
+      */
+      
+      /*
+      4)
+      closest : 조상
+      현재 요소에서 가장 가까운 조상을 가르킴
+
+      */
+      //alert(`${event.target.closest('#fruit').dataset.group} 조상님`); //divFruit 조상님
+      alert(event.target.closest('#fruit').dataset.group + '조상님');
+    }
+
+  })
+
+
+
+  
+</script>
+
+</body>
+</html>

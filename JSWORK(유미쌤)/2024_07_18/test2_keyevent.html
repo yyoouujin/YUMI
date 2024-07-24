@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <style>
+
+    .active{
+      background-color: pink;
+    }
+
+
+  </style>
+
+
+</head>
+<body>
+  <input id="txtWord"><button type="button" id="btnAdd">추가</button>
+  <p class="word" >list</p>
+  <p class="word">nice</p>
+  <p class="word">good</p>
+  <p class="word">very</p>
+</body>
+
+
+<script>
+
+  //p태그를 클릭하면 배경색 변경(교수님)
+  var pTags = document.querySelectorAll('.word');
+
+  pTags.forEach(elem => {
+    elem.addEventListener('click', function () {
+      event.target.classList.toggle("active");
+    })
+  })
+
+  //추가버튼 클릭하면 input태그의 값을 p태그 만들어서 추가
+  btnAdd.addEventListener("click", () => {
+    let pTag = document.createElement('p');
+      //클래스 변경 : classList.add('클래스명') 또는 className ="클래스명" (클래스를 여러개 줄 수 있다)
+    pTag.className = "word";
+    pTag.innerHTML = txtWord.value; //아이디로 직접 접근가능!
+
+    //바디에 붙이기 : append (자식에 붙이는 개념!)
+    //document.body.append(pTag);
+
+    //prepend 처음에 추가
+    //document.body.prepend(pTag);
+
+    //append는 차일드, after는 동생 (형제에 이동하는 개념!)
+    pTags[pTags.length-1].after(pTag);
+
+    txtWord.value = '';
+  })
+
+  //input태그에 keypress 엔터키(13) 인 경우도 p태그를 만들어서 추가
+  txtWord.addEventListener("keypress", function(e){ //e -> 이벤트가 걸리는 객체
+    //window.생략가능!
+    if(event.keyCode == 13) {
+      btnAdd.click();
+    }
+
+  })
+
+
+  /*
+  window : 창 전체
+    history : 뒤로, 앞으로, 새로고침
+    location : 주소
+    document : 실제 내용이 있는 부분
+  
+  window.go(1)
+  window.location.href(window 생략가능!) = '이동하고싶은 주소'
+
+  document.write : 모든 내용을 덮어쓴다
+  document.body : document 내 바디태그 전체를 가져온다
+
+
+  1) prepend : 처음에 추가
+  2) append : 바디가 끝나기 전에 추가
+  3) before : 지정한 형제 태그의 전에 이동(추가가 아님!)
+  4) after : 지정한 형제 태그의 끝에 이동(추가가 아님!)
+
+
+  */
+
+</script>
+</html>

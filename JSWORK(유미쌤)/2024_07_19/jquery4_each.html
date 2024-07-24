@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery4_for문</title>
+</head>
+<body>
+  <button>+</button><input value="1" /><span>200</span></br>
+  <button>+</button><input value="-1" /><span>100</span></br>
+  <button>+</button><input value="3" /><span>500</span></br>
+  <div>무야호</div>
+
+  <script>
+    jqueryTotal();
+    cntUp();
+
+
+    //카운트 증가
+    function cntUp(){
+      $("button").on("click", function(){
+
+        //val -> String 타입이니, 숫자타입으로 변경해줘야한다
+        let val = Number($(event.target).next().val()); 
+        val += 1;
+
+          // $(event.target).next().val() : val 속성을 읽어온다 getter
+          // $(event.target).next().val(val) : val 속성을 바꿔준다 setter
+        $(event.target).next().val(val);
+        $("div").html("");
+        jqueryTotal();
+      });
+
+    }
+    /*
+    //제이쿼리 토탈함수
+    function jqueryTotal(){
+      let total = 0;
+
+      $("input").each( (idx, ele) => {
+        
+        //total += Number($(ele).val());
+        //* 곱셈 자체가 다 숫자로 파싱된다
+        total += Number($(ele).val() * $(ele).next().text());
+
+      })
+      $("div").append(total);
+    }
+    */
+
+
+    //제이쿼리 토탈함수(each문 break, continue)
+      function jqueryTotal(){
+      let total = 0;
+
+      $("input").each( (idx, ele) => {
+        let cnt = $(ele).val();
+        if (cnt < 0) {
+          return; //continue (-값은 건너뛰고 계속 계산된다)
+          //return false; //break (200만 출력된다)
+        }
+        total += Number($(ele).val() * $(ele).next().text());
+
+      })
+      $("div").append(total);
+    }
+
+    //자바스크립트 토탈함수
+    function jsTotal(){
+      let sum = 0;
+
+      document.querySelectorAll("input").forEach(elem => {
+        sum += Number(elem.value);
+
+      });
+      document.querySelector('div').innerHTML = sum;
+    }
+
+
+    
+    /*
+    //1) js : input태그의 값을 합산해서 div에 출력
+    let sum = 0;
+
+    document.querySelectorAll("input").forEach(elem => {
+        //elem.value 의 값은 String 이기때문에 숫자타입으로 변경해준다
+        //number는 null을 체크해주는데, parseInt는 null값을 체크하지 못함
+        //parseInt('10px') --> 10
+      sum = sum + Number(elem.value);
+      console.log(sum);
+    });
+
+    let sumTag = `<p>${sum}</p>`
+    document.querySelector('div').insertAdjacentHTML("beforeend", sumTag);
+
+      [다똑같음]
+      document.querySelector('div').innerHTML = sum;
+      document.querySelectorAll('div')[0].innerHTML = sum;
+      document.getElementsByName('div')[0].innerHTML = sum;
+
+    */
+
+
+
+    /*
+    //2) jquery : input태그의 값을 합산해서 div에 출력
+
+    let sum = 0;
+
+    $("input").each( (index, elem) => {
+      let val = $(elem).val();
+      console.log(val);
+
+      sum = sum + parseInt(val);
+      console.log(sum);
+
+    })
+    $("div").append(`<p>${sum}</p>`);
+    */
+  
+
+    /*
+    [제이쿼리 for문]
+    
+    제이쿼리의 each는 each(index, elem) : 제이쿼리는 첫번째 값이 인덱스로 들어온당
+    자바스크립트의 forEach는 (elem, index)
+
+
+    [제이쿼리 형제]
+    .prev() : 해당 태그의 전 태그
+    .next() : 해당 태그의 다음 태그
+
+    */
+  </script>
+</body>
+</html>

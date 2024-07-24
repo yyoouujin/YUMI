@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery3_groupevent</title>
+
+  <style>
+    .active {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+
+  <input />
+  <button id="btnAdd">추가</button>
+  <button id="btnToggle">토글</button>
+  <div>
+    <p>사과</p>
+    <p>바나나</p>
+  </div>
+  
+
+  <script>
+    //그룹이벤트 : p태그 클릭 => 배경색 변경
+    $("div").on("click", "p" , function() {
+      $(event.target).toggleClass('active');
+    });
+    
+    //토글
+    $("#btnToggle").on("click", function(){
+      $("div").fadeToggle()
+    });
+
+    //추가
+    $("#btnAdd").on("click", function(){
+      let txt = $("input").val();
+      $("div").append(`<p>${txt}</p>`);
+    });
+
+    /*
+    [제이쿼리 그룹 이벤트]
+
+    부모태그.on("click", "부모태그 내 자식태그 기재" , function() {
+      기재된 자식태그에 이벤트가 걸리게됨
+    })
+
+    */
+  </script>
+</body>
+</html>

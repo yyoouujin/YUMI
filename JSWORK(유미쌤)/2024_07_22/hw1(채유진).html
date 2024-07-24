@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hw1</title>
+</head>
+<body>
+  <h1>이미지 슬라이더</h1>
+  <button id="btnBefore">◀</button>
+  <img src="../img/모코코.jpg" width="500px" height="500px" />
+  <button id="btnNext">▶</button>
+
+
+
+  <script>
+    let idx = 0;
+    let arr = ["../img/모코코.jpg", 
+               "../img/모코코2.png",
+               "../img/모코코3.png",
+               "../img/모코코4.png",
+               "../img/모코코5.png",
+               "../img/모코코6.jpg",
+               "../img/모코코7.jpg",
+               "../img/모코코8.jpg",
+               "../img/모코코9.jpg",
+               "../img/모코코10.jpg",
+               "../img/모코코11.jpg",
+               "../img/모코코12.jpg",
+               "../img/모코코13.jpg",
+               "../img/모코코14.jpg"]
+
+
+    //▶ 버튼 클릭 시 다음 사진으로 넘어가는것 (마지막까지 가면 다시 처음 이미지로)
+    $("#btnNext").on("click", function() {
+
+      //$태그.attr(‘속성’,’값’)
+      idx++;
+      $("img").attr("src", arr[idx]);
+
+      if (idx > arr.length - 1) {
+        $("img").attr("src", arr[0]);
+        idx = 0;
+      }
+    });
+
+
+    //◀ 버튼 클릭 시 이전 사진으로 넘어가는것 (뒤로 갈 이미지가 없으면 alert창 띄우기)
+    $("#btnBefore").on("click", function() {
+
+      idx--;
+      $("img").attr("src", arr[idx]);
+
+      if (idx == -1) {
+        alert("이전 이미지가 없습니다");
+        idx = 0;
+      }
+      
+    });
+
+
+    /*
+    $("img").attr("src", arr[1]) : 모코코2.png 로 이미지가 바뀌는 것 확인
+    */
+  </script>
+</body>
+</html>

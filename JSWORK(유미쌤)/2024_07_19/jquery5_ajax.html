@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery5_ajax</title>
+</head>
+<body>
+  <button id="btnReset">초기화</button>
+  <button id="btnInsert">등록</button>
+  <button id="btnUpdate">수정</button>
+  <button id="btnDelete">삭제</button>
+
+  <form name="frm">
+    userId<input type="text" name="userId" id="userId"><br />
+    id<input type="text" name="id" id="id"><br />
+    title<input type="text" name="title" id="title"><br />
+    completed<input type="text" name="completed" id="completed"><br />
+  </form>
+
+  <div id="divTodos"></div>
+
+
+
+  <script>
+    let url = "https://jsonplaceholder.typicode.com/todos";
+
+    //data를 알아서 파싱한다 (result.json() 사용할 필요 없음 생략가능)
+    $.ajax(url)
+    .then(data => {
+      data.forEach(element => {
+
+        $('#divTodos').append(`<p>${element.title}</p>`);
+        //$('#divTodos').append(element.title + '</br>');
+      });
+    })
+
+
+    //등록
+
+        //contentType 은 headers로 감싸지 않는다
+            /*
+            done : 정상적
+            fail : 에러났을때
+            always : 걍 항상
+
+            then : 귀찮음
+            
+            +) success : (=.done() 성공시 실행),
+               error : (=.fail() 실패시 실행)
+               async : false 는 동기식
+            */
+    $('#btnInsert').on("click", function() {
+      $.ajax(url, {
+                   //async : false, // -> 동기식
+                   method:"post", 
+                   contentType:"application/json",
+                   data:JSON.stringify( {title:title.value ,userId:userId.value ,completed:completed.value,}),
+                   //success: function(){},
+                   //error : function() {}
+                  })
+      .then(data => {
+        $('#divTodos').prepend(`<p>${data.title}</p>`);
+      })
+      .fail(() => {});
+    });
+
+
+
+    /*
+
+    [제이쿼리 AJAX] : https://api.jquery.com/jQuery.ajax/
+    
+    fetch.html 파일과 비교하면서 보기
+
+
+    */
+
+
+  </script>
+  
+</body>
+</html>

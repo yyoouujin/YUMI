@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery2_event</title>
+
+  <style>
+    .active {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+
+  <input />
+  <button id="btnAdd">추가</button>
+  <button id="btnToggle">토글</button>
+  <div>
+    <p>사과</p>
+    <p>바나나</p>
+  </div>
+  
+  
+
+  
+  <script>
+    //p태그 클릭 => 배경색 변경
+      //$(event.target) : p 태그 중 클릭된 것만 선택됨
+    $("p").on("click", function() {
+      //$(event.target).css("backgroundColor",'pink');
+      //$("p").css("backgroundColor",'pink');
+      $(event.target).toggleClass('active');
+    });
+    
+    //토글
+    $("#btnToggle").on("click", function(){
+      //$("div").toggle(); //hide, show 에 대한 토글
+      //$("div").fadeToggle()
+      $("div").slideToggle();
+    });
+
+    //추가
+    $("#btnAdd").on("click", function(){
+      let txt = $("input").val();
+      $("div").append(`<p>${txt}</p>`);
+    });
+
+      /*
+      append : 계속 추가
+      html : 덮어씀(뒤에 요소를 html 요소로 변경 후 인식)
+      text : 덮어씀(뒤에 요소까지 <> 텍스트로 인식)
+      */
+
+      //$("div").append(txt + "</br>");
+      //$("div").html(txt + "</br>");
+      //$("div").text(txt + "</br>");
+
+
+
+    /*
+    [제이쿼리 이벤트]
+    $태그.bind() : 	.unbind() 로 이벤트 삭제
+    $태그.on() : off()로 이벤트 삭제
+    $태그one() : 이벤트 한 번 실행 후 종료
+
+
+    [제이쿼리 속성 변경] prop? attr? 
+    */
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btnReset">초기화</button>
+  <button id="btnInsert">등록</button>
+  <button id="btnUpdate">수정</button>
+  <button id="btnDelete">삭제</button>
+
+  <form name="frm">
+    userId<input type="text" name="userId" id="userId"><br />
+    id<input type="text" name="id" id="id"><br />
+    title<input type="text" name="title" id="title"><br />
+    completed<input type="text" name="completed" id="completed"><br />
+  </form>
+
+  <div id="divTodos"></div>
+
+  <script>
+
+    /*
+    {completed: true
+    id: 195
+    title: "rerum ex veniam mollitia voluptatibus pariatur"
+    userId: 10}
+    */
+
+    //조회 : title 출력
+    let url = "https://jsonplaceholder.typicode.com/todos";
+
+    fetch(url)
+    .then(result => result.json())
+    .then(result => result.forEach(elem => {
+      let pTag = `
+                  <div>
+                    ${elem.title}
+                    <button data-id="${elem.id}">조회</button>
+                  </div>
+                  `
+      divTodos.insertAdjacentHTML("beforeend", pTag);
+    }));
+
+    //단건조회
+    divTodos.addEventListener("click", function(){
+      if(event.target.tagName == 'BUTTON') {
+        let id = event.target.dataset.id;
+        fetch(url + "/" + id)
+        .then(result => result.json())
+        .then(result => {
+          
+          //userId 인풋박스에 출력
+          userId.value = result.userId;
+          
+          //id는 키워드이기 때문에 요렇게 (혹은 id의 이름을 바꿔주면된다!)
+          document.querySelector("[name=id]").value = result.id;
+
+          //title을 인풋박스에 출력
+          title.value = result.title;
+
+          //completed를 인풋박스에 출력
+          completed.value = result.completed;
+          
+        })
+      }
+    });
+    
+
+    //초기화
+    btnReset.addEventListener("click", function(){
+      //window.document.frm.reset(); -> window.document 생략가능
+      frm.reset();
+    })
+
+    
+    //등록(Post)
+    btnInsert.addEventListener("click", function(){
+
+      let param = {
+                    userId : userId.value, 
+                    title : title.value, 
+                    completed : completed.value
+                  }
+
+        //mdn fetch 검색
+      fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify(param),
+      })
+      .then(result => result.json())
+      .then(result => {
+        let newTag = `
+                  <div>
+                    ${result.title}
+                    <button data-id="${result.id}">조회</button>
+                  </div>
+                  `
+        divTodos.insertAdjacentHTML("afterbegin", newTag);
+      })
+    });
+    
+
+    //수정
+
+    //삭제
+
+
+  </script>
+  
+</body>
+</html>

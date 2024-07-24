@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>attrvsprop</title>
+
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"
+></script>
+
+
+</head>
+<body>
+  <h3>attribute 와 property 차이</h3>
+  <div id="div">
+    div
+  </div>
+  <input type="text" id="txt" />
+  <input type="checkbox" id="chk" />
+
+
+  <script>
+    
+    /*
+    mdn setattribute 검색
+    https://developer.mozilla.org/ko/docs/Web/API/Element/setAttribute
+
+
+
+    [setAttribute]
+
+    attribute : 태그의 속성(value, alt, class ...)
+                값의 형식은 String 만 가능
+                XXX.setAttribute(속성, 값)
+                (유효한 속성은 보여진다)
+                $태그.attr
+
+    property : DOM 노드 속성(임의로 지정 가능)
+               값의 형식은 object도 가능
+               XXX.속성 = 값
+               (보여지지는 않지만 DOM 태그 내에서 추가된다)
+               $태그.prop
+
+
+
+    : 1) 속성 값은 String 형태로 지정
+      2) porperty는 객체타입으로도 넣을 수 있다
+          txt.userInfo = {name : '무야호', dept : '도전'}
+          txt.userInfo.dept -> '도전' 출력 확인
+      3) 유효하지 않은 속성은 DOM 태그내에서만 추가됨 (보여지지는 않는다)
+      4) 유효한 속성은 보여진다 ex) class, data, value...
+
+
+    div.setAttribute('data-code', 'f1')
+    div.setAttribute('class', 'active')
+    -> <div id="div" data-code='f1' class='active'> 확인
+
+    txt.setAttribute("value", "안녕")
+    txt.value -> '안녕' 출력 확인
+
+    txt.setAttribute("class", "active")
+    txt.className -> 'active' 출력 확인
+
+
+    +)
+    chk.setAttribute("checked", "checked")
+    chk.removeAttribute("checked", "checked")
+    -> 화면에서 체킹이 풀리진않지만 attribute 로 확인가능
+
+    chk.checked = false
+    -> 체크박스 체킹이 풀렸다 걸렸다까지 확인 가능
+
+
+    
+    html dom rendering 검색 : https://devysi0827.tistory.com/10
+
+    */
+  </script>
+  
+</body>
+</html>

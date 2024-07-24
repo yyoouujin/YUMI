@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery_hw1</title>
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"
+></script>
+
+</head>
+<body>
+  <button id="btnNext">다음문제</button>
+  <input id="num1" />+<input id="num2" />=<input id="result" />
+  <button id="btnConfirm">결과확인</button>
+
+</body>
+
+<script>
+  //btnNext 클릭하면 1~10 난수를 생성해서 num1, num2에 넣어주기
+  
+  $('#btnNext').on("click", function() {
+    let randomNum1 = Math.floor(Math.random() * 10) + 1;
+    let randomNum2 = Math.floor(Math.random() * 10) + 1;
+
+    $('#num1').val(randomNum1);
+    $('#num2').val(randomNum2);
+
+  });
+
+
+  //btnConfirm 클릭하면 두 수의 합과 result가 같은지 결과 출력(alert)
+
+  $('#btnConfirm').on("click", function() {
+    let num1 = $('#num1').val();
+    let num2 = $('#num2').val();
+    let result = $('#result').val();
+
+  
+    if (parseInt(num1)+ parseInt(num2) == parseInt(result)) {
+        alert("참 잘했어요");
+    } else {
+      alert("다시 풀어요");
+    }
+    
+
+  })
+
+
+
+
+</script>
+</html>

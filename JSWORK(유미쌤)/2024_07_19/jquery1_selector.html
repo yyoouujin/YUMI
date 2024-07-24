@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery1_selector</title>
+
+  <style>
+    .active {
+      background-color: yellow;
+    }
+
+  </style>
+
+
+</head>
+<body>
+  <h1>태그선택</h1>
+
+  <table border="1">
+    <tr id="s1" data-name="홍길동">
+      <td class="kor">1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td class="kor">4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td class="kor">7</td>
+      <td>8</td>
+      <td>9</td>
+    </tr>
+  </table>
+
+  <script>
+
+    /*
+    [초기세팅] : jquery cdn 추가! (카톡참고)
+
+      제이쿼리
+      ->
+      1) setter , getter 의 역할을 다 한다
+      2) 모두 다 함수다!
+
+    [제이쿼리 선택자]
+    	.getElementsByName(“div”) = <div name='div'></div>
+
+    $('.kor') : 배열타입 확인
+    $('.kor').html() : '1' 출력 확인
+    $('td') : 모든 td 확인
+    
+    제이쿼리의 html 메서드는 제일 처음의 내용을 읽는다
+    $('td').html() : '1' 출력 확인(td중 가장 첫번째 내용)
+    $('td').eq(2).html() : '3' 출력 확인 (세번째 td의 내용)
+
+    $('td').first().html() : '1' 출력 확인 (td중 가장 첫번째 내용)
+    $('td').last().html() : '9' 출력 확인 (마지막 td의 내용)
+
+
+
+    [제이쿼리 CSS 변경] : $태그.css(‘속성’,’값’)
+    ->
+    인수가 두개 들어가면 : 속성의 값을 변경 set 기능
+    인수가 한개 들어가면 : get 기능
+    $('td').last().css('color', 'red') : 마지막 td의 색상을 파란색으로 변경
+    $('td').last().css('color'):'rgb(255, 0, 0)' 확인(색상의 속성 get)
+
+    $('#s1').hide() : 아이디s1 숨어짐
+    $('#s1').show() : 다시 보여짐
+    +) $('#s1').toggle() : 숨겼다 보였다 반복
+
+
+    [제이쿼리 데이터속성] : $태그.data(“속성”, “값”)
+    $('#s1').data('name') : '홍길동' 출력 확인
+    $('#s1').data('class', '채유진') : 데이터 속성, 값 변경
+    $('#s1').data('class') : '채유진' 출력 확인
+
+
+    [제이쿼리 클래스]
+    $('#s1').addClass('active') : 아이디 s1 배경색 노란색으로 변경
+    $('.kor').removeClass('active') : 적용된 배경색이 다시 빠짐 확인
+    $('.kor').toggleClass('active') : toggle 할때마다 넣었다 빠졌다 확인
+
+
+    [제이쿼리 요소추가] : $부모.append($newTag) -> html 이든 string 이든 다 넣어준다 (하나로 해결! 개꿀)
+    $('tbody').append("<tr><td></td></tr>") : 기존 tbody 바로아래 붙는것 확인!
+
+    $('tbody').prepend("<tr><td>처음으로가라</td></tr>") : 기존 tbody 가장 첫번째 붙는것 확인!
+
+    자식과 부모를 바꿀 수 있다
+    $("<tr><td>처음으로가라</td></tr>").appendTo("tbody") : 자식을 부모한테 붙임
+
+      $("<tr><td>자식을 부모에게</td></tr>").appendTo("tbody")
+      $('tbody').append("<tr><td>부모를 자식에게</td></tr>") 
+    
+    
+    [제이쿼리 필터]
+
+    $("td").odd().css("backgroundColor", "red") : odd() 홀수
+    $("td").even().css("backgroundColor", "red") : even() 짝수
+    $("td").eq(index).css("backgroundColor", "red") : eq(index) 해당 인덱스번호와 같은
+
+    $("td:lt(4)").css("backgroundColor", "yellow") : 인덱스 기준 전에꺼 변경
+    $("td:gt(4)").css("backgroundColor", "green") : 인덱스 기준 뒤에꺼 변경
+
+
+
+    [제이쿼리 객체]
+
+    제이쿼리 객체 앞에 $를 붙여준다
+
+    dom객체를 $()로 감싸면 제이쿼리 객체가 된다
+    dom 객체에 get(0) 함수를 쓰면 제이쿼리 객체가 된다
+          $td[0] : DOM 객체 확인
+          $td.get(0) : DOM 객체 확인
+          $td.eq(0) : 제이쿼리 객체 그대로 출력 되는것 확인
+
+    1) DOM객체 색상 변경
+    document.getElementsByTagName('td')[0].style.backgroundColor = 'yellow'
+
+    2) 제이쿼리 객체 색상 변경
+    $(document.getElementsByTagName('td')[6]).css('backgroundColor', 'red')
+
+
+    [제이쿼리 each]
+    break, continue 확인
+
+
+    */
+
+
+
+  </script>
+
+</body>
+</html>

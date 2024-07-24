@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<!--
+  //추가버튼 클릭하면 input태그의 값을 p태그 만들어서 추가
+  btnAdd.addEventListener("click", () => {
+    let newTag = `<p class="word">${txtWord.value}</p>`
+
+      //string 타입의 태그는 append 로 못넣는다! (insertAdjacentHTML(position, text)사용!)
+    let words = document.getElementById('words');
+    words.insertAdjacentHTML('beforeend', newTag);
+    
+    txtWord.value = '';
+  })
+
+
+
+  rank / movieNm / openDt
+-->
+
+<body>
+  <table border="1">
+
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>제목</th>
+        <th>개봉일자</th>
+        <th>선택</th>
+      </tr>
+    </thead>
+
+    <tbody id="result2">
+
+    </tbody>
+
+  </table>
+
+
+  <div id="result"></div>
+  <script>
+
+
+
+
+
+
+
+
+    //영화정보api -> 영화진흥위원회 오픈API : 맨아래json
+    let movieList =       { "boxOfficeResult": { "boxofficeType": "일별 박스오피스", "showRange": "20240717~20240717", "dailyBoxOfficeList": [{ "rnum": "1", "rank": "1", "rankInten": "0", "rankOldAndNew": "NEW", "movieCd": "20240983", "movieNm": "명탐정 코난: 100만 달러의 펜타그램", "openDt": "2024-07-17", "salesAmt": "1084042238", "salesShare": "40.3", "salesInten": "1084042238", "salesChange": "100", "salesAcc": "1139652494", "audiCnt": "110105", "audiInten": "110105", "audiChange": "100", "audiAcc": "114453", "scrnCnt": "1089", "showCnt": "4458" }, { "rnum": "2", "rank": "2", "rankInten": "-1", "rankOldAndNew": "OLD", "movieCd": "20212932", "movieNm": "탈주", "openDt": "2024-07-03", "salesAmt": "463737068", "salesShare": "17.2", "salesInten": "35720026", "salesChange": "8.3", "salesAcc": "14020279531", "audiCnt": "50066", "audiInten": "3900", "audiChange": "8.4", "audiAcc": "1487645", "scrnCnt": "914", "showCnt": "3329" }, { "rnum": "3", "rank": "3", "rankInten": "0", "rankOldAndNew": "OLD", "movieCd": "20235974", "movieNm": "인사이드 아웃 2", "openDt": "2024-06-12", "salesAmt": "271381275", "salesShare": "10.1", "salesInten": "-15468385", "salesChange": "-5.4", "salesAcc": "74512504147", "audiCnt": "29251", "audiInten": "-1396", "audiChange": "-4.6", "audiAcc": "7747579", "scrnCnt": "827", "showCnt": "2856" }, { "rnum": "4", "rank": "4", "rankInten": "-2", "rankOldAndNew": "OLD", "movieCd": "20208911", "movieNm": "탈출: 프로젝트 사일런스", "openDt": "2024-07-12", "salesAmt": "274265095", "salesShare": "10.2", "salesInten": "-35976720", "salesChange": "-11.6", "salesAcc": "4407202299", "audiCnt": "29246", "audiInten": "-3303", "audiChange": "-10.1", "audiAcc": "451940", "scrnCnt": "775", "showCnt": "2718" }, { "rnum": "5", "rank": "5", "rankInten": "-1", "rankOldAndNew": "OLD", "movieCd": "20208245", "movieNm": "핸섬가이즈", "openDt": "2024-06-26", "salesAmt": "203023554", "salesShare": "7.5", "salesInten": "-16620992", "salesChange": "-7.6", "salesAcc": "12957050762", "audiCnt": "21980", "audiInten": "-1681", "audiChange": "-7.1", "audiAcc": "1394333", "scrnCnt": "685", "showCnt": "1930" }, { "rnum": "6", "rank": "6", "rankInten": "-1", "rankOldAndNew": "OLD", "movieCd": "20248465", "movieNm": "하이재킹", "openDt": "2024-06-21", "salesAmt": "89113212", "salesShare": "3.3", "salesInten": "-36131010", "salesChange": "-28.8", "salesAcc": "15958700701", "audiCnt": "9687", "audiInten": "-4155", "audiChange": "-30", "audiAcc": "1680425", "scrnCnt": "541", "showCnt": "951" }, { "rnum": "7", "rank": "7", "rankInten": "0", "rankOldAndNew": "NEW", "movieCd": "20241002", "movieNm": "이매큘레이트", "openDt": "2024-07-17", "salesAmt": "30820900", "salesShare": "1.1", "salesInten": "30820900", "salesChange": "100", "salesAcc": "34294900", "audiCnt": "3519", "audiInten": "3519", "audiChange": "100", "audiAcc": "3905", "scrnCnt": "191", "showCnt": "264" }, { "rnum": "8", "rank": "8", "rankInten": "0", "rankOldAndNew": "NEW", "movieCd": "20248880", "movieNm": "그리고 바통은 넘겨졌다", "openDt": "2024-07-17", "salesAmt": "14026700", "salesShare": "0.5", "salesInten": "14026700", "salesChange": "100", "salesAcc": "15860700", "audiCnt": "2266", "audiInten": "2266", "audiChange": "100", "audiAcc": "2528", "scrnCnt": "108", "showCnt": "180" }, { "rnum": "9", "rank": "9", "rankInten": "0", "rankOldAndNew": "NEW", "movieCd": "19960126", "movieNm": "비포 선라이즈", "openDt": "1996-03-30", "salesAmt": "21507200", "salesShare": "0.8", "salesInten": "21507200", "salesChange": "100", "salesAcc": "510735948", "audiCnt": "2178", "audiInten": "2178", "audiChange": "100", "audiAcc": "62293", "scrnCnt": "82", "showCnt": "103" }, { "rnum": "10", "rank": "10", "rankInten": "-4", "rankOldAndNew": "OLD", "movieCd": "20240781", "movieNm": "플라이 미 투 더 문", "openDt": "2024-07-12", "salesAmt": "17557717", "salesShare": "0.7", "salesInten": "-21072200", "salesChange": "-54.5", "salesAcc": "290387296", "audiCnt": "1926", "audiInten": "-2284", "audiChange": "-54.3", "audiAcc": "30960", "scrnCnt": "146", "showCnt": "208" }] } }
+
+    
+
+    //첫번째 영화의 제목만 출력
+    console.log(movieList.boxOfficeResult.dailyBoxOfficeList[0].movieNm);
+
+
+    /*
+
+    dailyBoxOfficeList": [
+      {
+        "rnum": "1",
+        "rank": "1",
+        "rankInten": "0",
+        "rankOldAndNew": "NEW",
+        "movieCd": "20240983",
+        "movieNm": "명탐정 코난: 100만 달러의 펜타그램",
+        "openDt": "2024-07-17",
+        "salesAmt": "1084042238",
+        "salesShare": "40.3",
+        "salesInten": "1084042238",
+        "salesChange": "100",
+        "salesAcc": "1139652494",
+        "audiCnt": "110105",
+        "audiInten": "110105",
+        "audiChange": "100",
+        "audiAcc": "114453",
+        "scrnCnt": "1089",
+        "showCnt": "4458"
+      },
+      
+    */
+    //영화제목만 출력
+    let list = movieList.boxOfficeResult.dailyBoxOfficeList;
+
+    list.forEach(element => {
+
+      // let pTag = document.createElement('p');
+      // pTag.innerHTML = element.movieNm;
+      // console.log(pTag);
+      // result.append(pTag);
+
+      //백틱의 위대함
+      let newTag = `<tr data-cd="${element.movieCd}">
+                  <td>${element.rank}</td>
+                  <td>${element.movieNm}</td>
+                  <td>${element.openDt}</td>
+                  <td><button>선택</button></td>
+                  </tr>`
+
+      //result2.insertAdjacentHTML("afterend", newTag); //요소 이후에 위치합니다.
+      result2.insertAdjacentHTML("beforeend", newTag); //요소 바로 안에서 마지막 자식(last-child) 이후에 위치합니다.
+
+
+      //그룹이벤트 tbody -> button -> closest tr -> data-cd alert
+      document.querySelector('tbody').addEventListener('click', function () {
+        if (event.target.tagName == 'BUTTON') {
+          alert(event.target.closest('tr').dataset.cd + '무야호'); //버튼의 가장 가까운 조상 tr
+        }
+      });
+
+
+    });
+
+
+  </script>
+</body>
+
+</html>

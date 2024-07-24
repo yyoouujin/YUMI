@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery4_each_homework.html</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div>
+      <button>-</button>
+      <input value="1" size="3" />
+      <button>+</button>
+      <span>100</span>
+    </div>
+    <div>
+      <button>-</button>
+      <input value="1" size="3" />
+      <button>+</button>
+      <span>200</span>
+    </div>
+    <div>
+      <button>-</button>
+      <input value="1" size="3" />
+      <button>+</button>
+      <span>300</span>
+    </div>
+    <div></div>
+    <script>
+
+      jqueryTotal();
+      cntUp();
+
+      function cntUp() {
+
+        $("button").on("click", function () {
+
+          let plus = $(event.target).prev().val();
+          let minus = $(event.target).next().val();
+
+          plus++;
+          $(event.target).prev().val(plus);
+          minus--;
+          $(event.target).next().val(minus);
+
+          $('div').last().html('');
+          jqueryTotal();
+
+        });
+
+      }
+
+      //jquery
+      function jqueryTotal() {
+
+        let total = 0;
+        
+        $('input').each( (idx, ele) => {
+
+          let cnt = $(ele).val();
+          let money = $(ele).next().next().text();
+          
+          total += (Number(cnt) * Number(money));
+          
+        });
+
+        $('div').last().append(total);
+      
+      }
+    </script>
+  </body>
+</html>

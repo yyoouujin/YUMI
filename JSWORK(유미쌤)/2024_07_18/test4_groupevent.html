@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active{
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+  <div id="divWords">
+    <div>그룹 이벤트 연습</div>
+    <p class="word" >list</p>
+    <p class="word">nice</p>
+    <p class="word">good</p>
+    <p class="word">very</p>
+  </div>
+
+
+<script>
+  /*
+  그룹이벤트(이벤트위임)
+    이벤트 전파개념
+
+  window.target : 이벤트가 발생했을 때 나타난다
+  
+
+  */
+
+  divWords.addEventListener('click', function() {
+      //if(event.target.tagName == 'P') : p 태그에만 이벤트를 걸어줌
+      //if(event.target.classList.contains("word")) : 클래스가 word인 애들만 이벤트를 걸어줌!
+    if(event.target.tagName == 'P'){
+      event.target.classList.toggle("active");
+    }
+
+  });
+
+</script>
+
+</body>
+</html>

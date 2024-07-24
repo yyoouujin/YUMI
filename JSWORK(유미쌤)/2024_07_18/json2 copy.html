@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<!--
+  //추가버튼 클릭하면 input태그의 값을 p태그 만들어서 추가
+  btnAdd.addEventListener("click", () => {
+    let newTag = `<p class="word">${txtWord.value}</p>`
+
+      //string 타입의 태그는 append 로 못넣는다! (insertAdjacentHTML(position, text)사용!)
+    let words = document.getElementById('words');
+    words.insertAdjacentHTML('beforeend', newTag);
+    
+    txtWord.value = '';
+  })
+
+
+
+  rank / movieNm / openDt
+-->
+
+<body>
+  <input id="txtDt" value="20240716"><button type="button" id="btnDt">조회</button>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>제목</th>
+        <th>개봉일자</th>
+        <th>선택</th>
+      </tr>
+    </thead>
+    <tbody id="result2">
+    </tbody>
+  </table>
+  <div id="info">
+
+  </div>
+
+
+  <div id="result"></div>
+  <script>
+
+  // -------------------------------
+  //조회버튼 이벤트(박스오피스 조회)
+  // -------------------------------
+  btnDt.addEventListener("click", function(){
+
+    let url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=" + txtDt.value;
+
+    //fetch 를 쓰는 이유 : fetch 함수는 XMLHttpRequest 객체보다 최근에 나온, HTTP 요청 전송 기능을 제공 (Web API)
+    //서버 통신하는 프로그램이 fetch 함수임! (url형식의 데이터를 받아온다)
+    fetch(url)
+    .then((result) => result.json())
+    .then((result) => movieListHandler(result));
+
+  });
+
+    // -------------------------------
+    //조회버튼 핸들러(박스오피스 조회)
+    // -------------------------------
+        //AJAX로 movieList 의 데이터를 가져온다!
+    function movieListHandler(movieList) {
+
+    //첫번째 영화의 제목만 출력
+    console.log(movieList.boxOfficeResult.dailyBoxOfficeList[0].movieNm);
+
+    //영화제목만 출력
+    let list = movieList.boxOfficeResult.dailyBoxOfficeList;
+
+    //영화목록 비우기
+    result2.innerHTML = '';
+
+    list.forEach(element => {
+      
+      // let pTag = document.createElement('p');
+      // pTag.innerHTML = element.movieNm;
+      // console.log(pTag);
+      // result.append(pTag);
+
+      //백틱의 위대함
+      let newTag = `<tr data-cd="${element.movieCd}">
+                  <td>${element.rank}</td>
+                  <td>${element.movieNm}</td>
+                  <td>${element.openDt}</td>
+                  <td><button>선택</button></td>
+                  </tr>`
+
+      //result2.insertAdjacentHTML("afterend", newTag); //요소 이후에 위치합니다.
+      result2.insertAdjacentHTML("beforeend", newTag); //요소 바로 안에서 마지막 자식(last-child) 이후에 위치합니다.
+
+
+    });
+
+  }
+
+  // -------------------------------
+  //영화선택 핸들러(영화 상세정보 조회)
+  // -------------------------------
+    //그룹이벤트 tbody -> button -> closest tr -> data-cd alert
+  result.addEventListener('click', function () {
+    if (event.target.tagName == 'BUTTON') {
+      alert(event.target.closest('tr').dataset.cd + '무야호'); //버튼의 가장 가까운 조상 tr
+
+      
+      //fetch => 영화상세정보 -> 첫번째감독, 출연배우들 정보를 div#info에 출력!
+      
+
+    }
+  });
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event_propagation.html</title>
+</head>
+<body>
+  <a href="http://www.naver.com">naver</a>
+  <div id="pDiv">부모
+    <div id="cDiv">자식</div>
+  </div>
+
+
+  <script>
+    document.querySelector("a").addEventListener("click", function() {
+      //a 태그는 무조건 이동을한다 (예, 아니요 상관없이) : a, submit -> 원래 기능을 중지
+      if(! confirm("이동할까요?")) { //취소를 누르면
+        event.preventDefault(); // 이동을 할 수 없도록 한다 (이벤트 전파를 멈춘다)
+      }
+    });
+
+    document.querySelector("#pDiv").addEventListener("click", function() {
+      alert("부모호출");
+      
+    });
+
+    document.querySelector("#cDiv").addEventListener("click", function() {
+      //부모의 클릭이벤트까지 실행됨 (전파 = 버블링)
+      alert("자식호출");
+      event.stopPropagation(); //전파중지(버블링을 막는다)
+      
+    });
+
+  </script>
+</body>
+</html>

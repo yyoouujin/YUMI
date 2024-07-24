@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+<script>
+  
+  //$('window').on("ready", function(){}) : 윈도우가 로드되면 실행해라 (아래처럼 줄여서 사용가능)
+  $(function(){
+    $('#accordion').accordion( {
+                                collapsible: true, // 1) 클릭 시 열고 닫을 수 있다(default : false)
+                                //active: 2, // 2) 처음 보여지는 (클릭된) 영역을 잡아줌
+                                heightStyle: "content", //콘텐츠 영역만큼 보여줌
+                                header: "> div > h3", // 3) 헤더 설정을 잡아줌(pannel은 자동적으로 그 아래 속해있는 영역이 된다)
+                                  //https://www.w3schools.com/cssref/css_selectors.php
+                                // div > p : div 태그의 자식 p 태그 (바로 밑에 있어야 찾는다 : 부모)
+                                // div p : div 태그의 자손 p 태그 (바로 밑에 있지않아도 찾는다)
+                                //[attribute^=value] : ~로 시작하는것, [attribute$=value] : ~로 끝나는것
+
+
+
+                                activate: function( event, ui ) {
+                                  //console.log(ui.newHeader.html());
+                                  //console.log(ui.newPanel.html());
+                                  //console.log(ui.newHeader.data("code"));
+                                  //console.log(ui.oldHeader.data("code"));
+                                  
+                                  //페이지 연결(type : xhr 확인!) - $(“div”).load(url)
+                                  //load함수가 알아서 ajax를 호출해서 페이지까지 열어준다!
+                                  let code = ui.newHeader.data("code");
+                                  if(code == 'j2') {
+                                    ui.newPanel.load("hw1(채유진).html");
+                                  } else if (code =='j3') {
+                                    ui.newPanel.load("hw3(채유진).html");
+                                  }
+                                },
+
+                                //아코디언 효과 (default : 400 부드럽게)
+                                animate: {easing : "linear", duration : 1000},
+
+                               }
+                                
+                              ) //end of $('#accordion')                              
+    .sortable({
+        axis: "y",
+        handle: "h3",
+        stop: function( event, ui ) {
+          // IE doesn't register the blur when sorting
+          // so trigger focusout handlers to remove .ui-state-focus
+          ui.item.children( "h3" ).triggerHandler( "focusout" );
+ 
+          // Refresh accordion to handle new order
+          $( this ).accordion( "refresh" );
+        }
+      });
+    
+    //datepicker : https://jqueryui.com/datepicker/#default (날짜!)
+    $('#hireDt').datepicker({
+                              //날짜 최소, 최대값 설정 : date / string/ number 로 설정가능 ( y, m, w, d)
+                              minDate: "-2w", 
+                              maxDate : "2w",
+                              dateFormat: "yy년mm월dd일",
+
+                              //onSelect : 날짜를 선택했을 때 (날짜문자열, 날짜객체가 순서대로 매개변수로 들어가있다)
+                              onSelect : function(dateStr, dateObj){
+                                console.log(dateStr);
+                                console.log(dateObj);
+                                $('#selDt').html(dateStr);
+                                $('#selDt').html(dateObj.currentDay + '일');
+                              },
+
+                              //요일의 이름을 바꿔준다
+                              dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+
+
+                            });
+                          
+    //dialog (modal 내용은 어디있든 상관 x)
+    let dialog = $("#dialog-form").dialog({
+                              //열자마자 모달이 보이지 않게 해준다(default는 true)
+                              autoOpen: false,
+
+                              //모달 바깥쪽 창을 제어해준다 (부모창 제어 클릭안되도록)
+                              modal: true,
+
+                              //창을 닫으면 폼 안에 내용이 지워진다
+                              close: function() { 
+                                                document.forms[ 0 ].reset();
+                                                 },
+
+                              //버튼 -> 라벨명 : 해당 기능
+                              buttons: { 저장 : function(){console.log('save')}, 
+                                         취소 : function(){dialog.dialog("close")} },
+                              
+
+                              //모달 창 effect
+                              show: { effect: "shake", duration: 1000 , showdown : false },
+                              
+                              //open시 실행할 function
+                              open : function(ev) {
+                                console.log(ev, 'modal.open');  
+                              },
+
+
+                            });
+
+    $( ".btnOpenModal" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+    });
+
+    //옵션 설정 후 변경가능 (페이지 로드 함수 내 있어야한다!)
+    //$('#accordion').accordion( "option", "active", 1 );
+    $("#hireDt").datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+
+
+
+  }); //end of $(function)
+                          
+
+</script>
+<body>
+  <div id="accordion">
+    <div class="group">
+      <h3 data-code="j1">java</h3>
+      <div>
+        <input id="hireDt" />
+        <div id="selDt"></div>
+        <div class="btnOpenModal">user01</div>
+        <div class="btnOpenModal">user02</div>
+      </div>
+
+    </div>
+    <div class="group">
+      <h3 data-code="j2">js</h3>
+      <div></div>
+    </div>
+    <div class="group">
+      <h3 data-code="j3">node</h3>
+      <div></div>
+    </div>
+  </div>
+
+
+
+<script>
+
+/*
+스크립트는 순차적으로 읽힌다(body 태그 위 head부분에 위치하면 효과가 적용되지 않음을 확인)
+
+1)
+$('window').on("ready", function(){}) 사용 시 바로 읽힌다!
+
+2)
+collapsible: true - 클릭 시 열고 닫을 수 있다(default : false)
+
+3)
+옵션 설정 후 변경
+$( ".selector" ).accordion( "option", "disabled", true );
+
+4)
+sortable : 드래그드롭이 가능하게 해주도록 한다!
+
+5)
+activate( event, ui ) : activate( "이벤트 객체", ui )
+  ui는 총 네가지 (newHeader / oldHeader / newPanel / oldPanel) : 클릭 전후로 old와 new가 나뉘어진다
+
+
+
+
+ .sortable({
+        axis: "y",
+        handle: "h3",
+        stop: function( event, ui ) {
+          // IE doesn't register the blur when sorting
+          // so trigger focusout handlers to remove .ui-state-focus
+          ui.item.children( "h3" ).triggerHandler( "focusout" );
+ 
+          // Refresh accordion to handle new order
+          $( this ).accordion( "refresh" );
+        }
+      });
+*/
+
+</script>
+
+
+
+<!--modal 내용은 어디있든 상관-->
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">All form fields are required.</p>
+ 
+  <form>
+    <fieldset>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" class="text ui-widget-content ui-corner-all">
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+</body>
+
+</html>
