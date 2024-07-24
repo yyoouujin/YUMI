@@ -1,9 +1,20 @@
+/*
+순서
+morgan -> son, urlencoded -> cookieParser -> 라우터 -> 404처리 미들웨어 -> 에러핸들러
+
+* 라우터 위에 꼭기재하기!
+
+*/
+
+
 const express = require("express");
 const app = express();
 const port = 3000;
 //따로 만든 라우터를 넣어준다
 const userRouter = require("./routes/user.js");
 const productRouter = require("./routes/product.js");
+const loginRouter = require("./routes/login.js");
+
 //cors : 모든 도메인 허용
 const cors = require('cors') 
 app.use(cors());
@@ -15,6 +26,12 @@ const morgan = require("morgan");
 const session = require("express-session"); 
 const fileStore = require("session-file-store")(session); 
 
+//cookie-parser
+const cookieParser = require('cookie-parser');
+
+//multer
+const multer = require("multer");
+const upload = multer({ dest: 'c:/temp' });
 
 
 //정적 컨텐츠가 있는 폴더명을 기재한다 -> http://localhost:3000/images/모코코.jpg
@@ -26,11 +43,18 @@ app.use(express.urlencoded({ extended: false }));
 //json : body 에 들어있는 값들을 모두 파싱해준다 (이것도 라우팅 하기전에 써줘야함)
 app.use(express.json());
 
+/*
+body-parser -> 미들웨어의 한 종류
+: 서로 다른 애플리케이션이 서로 통신하는 데 사용되는 소프트웨어(순서중요!)
++) 라우터도 미들웨어의 한 종류!
+*/
+
+
 //파싱이 끝나고 출력 (console.log 찍어준다)
 /*
-tiny 
+tiny - 간단히 출력
 =>
-   간단히 출력 : GET /member?page=1&search=morganwow 200 0.377 ms - 29
+  : GET /member?page=1&search=morganwow 200 0.377 ms - 29
 
 combined - 자세히 출력
 =>
@@ -43,8 +67,10 @@ app.use(morgan("combined"));
 morgan 출력 데이터 타입을 정해서 사용 가능
 date 의 default 타입은 web!
 https://www.npmjs.com/package/morgan#dateformat
-*/
+
 app.use(morgan(":date :method :url :response-time"));
+*/
+
 
 
 /*
@@ -52,7 +78,7 @@ app.use(morgan(":date :method :url :response-time"));
 git에 올릴 땐 module 과 함꼐 빼는게 좋다!
 sessions/
 node_modules/
-
+*/
 app.use( 
   session({ 
     secret: "secret key", 
@@ -61,20 +87,15 @@ app.use(
     cookie: { 
       httpOnly: true, 
       //secure: true, 
-      maxAge: 60000, 
+      maxAge: 3600000, //1시간
     }, 
     store: new fileStore(), 
   }) 
 ); 
-*/
-
-/*
-body-parser -> 미들웨어의 한 종류
-: 서로 다른 애플리케이션이 서로 통신하는 데 사용되는 소프트웨어(순서중요!)
-+) 라우터도 미들웨어의 한 종류!
-*/
 
 
+//쿠키파서
+app.use(cookieParser());
 
 /*
 const router = express.Router();
@@ -86,16 +107,41 @@ const router = express.Router();
 그 라우터 객체를 사용하는 방법
 */
 
+//multer 첨부파일은 반드시 post로 받기
+/*
+부메랑 - multipart - file 형식으로 실습
 
-//라우트 요청분배 : use()
-app.use("/member",userRouter);
+1) single : 하나만 업로드
+app.post('/profile', upload.single('avatar'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
+
+2) array : 여러개 업로드
+app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+})
+
+*/
+app.post("/upload", upload.single("profile"), (req, res) => {
+  console.log(req.file); //파일정보
+  const originalname = req.file.originalname;
+  const filename = req.file.filename;
+  res.send(`upload success ${originalname}, ${filename}`);
+});
+
+
 /*
 userRouter 로 가서 /member 밑에 user.js 내 기재된 path
 ex) 
 http://localhost:3000/member/hello
 입력 시 (POST) 방법으로 확인하면 'router post hi' 가 노출됨!
 */
+//라우트 요청분배 : use()
+app.use("/member",userRouter);
 app.use("/product",productRouter);
+app.use("/user", loginRouter);
 
 
 app.get("/", (req, res) => {
@@ -131,3 +177,11 @@ post, put, delete 부메랑으로 실습
 app.listen(port, () => {
   console.log(`server running http://localhost:${port}`);
 })
+
+
+/*
+use
+=>
+morgan -> son, urlencoded -> cookieParser -> 라우터 -> 404처리 미들웨어 -> 에러핸들러
+
+*/

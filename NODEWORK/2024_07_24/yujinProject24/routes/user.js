@@ -15,11 +15,24 @@ router.get("/:username/:cookie",(req, res) => {
 
 //2) req.query
 //http://localhost/member?page=1&search=choi
+//전체조회
 router.get("/",(req, res) => {
   const page = req.query.page;
   const search = req.query.search;
+  
+  //세션정보읽기
+  const email = req.session.email;
+  
+  //쿠키값읽기(req.cookies.쿠키명)
+  console.log('cart cookie : ', req.cookies.cart);
+  console.log('popup cookie : ', req.cookies.popupyn);
+
+  //쿠키저장(res.cookie(name, value [, options]))
+  res.cookie("email", email, { expires: new Date(Date.now() + 15000) });
+  res.send(`user query: ${email}`);
+
   const data = req.query; // 자바의 vo
-  res.send(`user query string ${page} ${search}`);
+  res.send(`user query string${email}`);
 
   //console.log(data);
   //-> { page: '8', search: 'yujin' } 확인
