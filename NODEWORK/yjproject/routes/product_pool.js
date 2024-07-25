@@ -34,6 +34,15 @@ router.post("/", (req, res) => {
 });
 
 
+/*
+[async await함수 사용도 가능!]
+
+router.post("/", async (req, res) => {
+  let result = await mysql.query("productInsert", req.body);
+  res.send(result);
+});
+*/
+
 
 //수정
 //put     /productpool/1
