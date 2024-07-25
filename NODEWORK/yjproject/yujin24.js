@@ -14,6 +14,8 @@ const port = 3000;
 const userRouter = require("./routes/user.js");
 const productRouter = require("./routes/product.js");
 const loginRouter = require("./routes/login.js");
+const customerRouter = require("./routes/customer.js");
+const productPoolRouter = require("./routes/product_pool.js");
 
 //cors : 모든 도메인 허용
 const cors = require('cors') 
@@ -142,6 +144,8 @@ http://localhost:3000/member/hello
 app.use("/member",userRouter);
 app.use("/product",productRouter);
 app.use("/user", loginRouter);
+app.use("/customer", customerRouter);
+app.use("/productpool", productPoolRouter);
 
 
 app.get("/", (req, res) => {

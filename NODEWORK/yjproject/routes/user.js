@@ -32,7 +32,7 @@ router.get("/",(req, res) => {
   res.send(`user query: ${email}`);
 
   const data = req.query; // 자바의 vo
-  res.send(`user query string${email}`);
+  //res.send(`user query string${email}`);
 
   //console.log(data);
   //-> { page: '8', search: 'yujin' } 확인

@@ -6,7 +6,7 @@ get 방식 -> req.query 로 받기
 post 방식 -> req.body 로 받기
 */
 
-//login
+//login : http://localhost:3000/user/login?email=yujin@gmail.com
 router.get("/login",(req, res) => {
   const {email, pw} = req.query;
   console.log(email);
