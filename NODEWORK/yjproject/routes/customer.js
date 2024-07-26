@@ -11,13 +11,17 @@ const conn = { host: "127.0.0.1",
                password: "hr",  
                database: "shop"  }; //스키마명
 
+
+/*
 //DB 커넥션 생성
 let connection = mysql.createConnection(conn);
-
+*/
 
 
 //get : 전체조회 http://localhost/customer
 router.get("/", (req, res) => {
+  //DB 커넥션 생성
+  let connection = mysql.createConnection(conn);
   let sql = "select * from customer";
 
   connection.query(sql, (err, result, fields) => {
@@ -31,6 +35,8 @@ router.get("/", (req, res) => {
 
 //get : 단건조회 http://localhost/customer/2
 router.get("/:id", (req, res) => {
+   //DB 커넥션 생성
+   let connection = mysql.createConnection(conn);
   let id = req.params.id;
   let sql = "select * from customer where id="+id;
 
@@ -45,6 +51,9 @@ router.get("/:id", (req, res) => {
 //post : 등록
 // post 방식 또는 JSON 시 body 부분에 request 가 붙는다
 router.post("/", (req,res) => { 
+   //DB 커넥션 생성
+   let connection = mysql.createConnection(conn);
+
   let sql = `insert into customer set ?`;
   let name = req.body.name;
   let email = req.body.email;
@@ -65,6 +74,9 @@ router.post("/", (req,res) => {
 //put : 수정 
 // post 방식 또는 JSON 시 body 부분에 request 가 붙는다
 router.put("/:id", (req, res) => {
+   //DB 커넥션 생성
+   let connection = mysql.createConnection(conn);
+
   let id = req.params.id;
   let sql = `
             update customer
@@ -84,6 +96,8 @@ connection.end();
 
 //delete : 삭제
 router.delete("/:id", (req, res) => {
+   //DB 커넥션 생성
+   let connection = mysql.createConnection(conn);
   let id = req.params.id;
   let sql = "delete from customer where id="+id;
 

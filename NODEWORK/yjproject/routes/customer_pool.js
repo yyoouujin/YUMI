@@ -21,32 +21,21 @@ router.get("/:id", (req, res) => {
 //post : 등록
 // post 방식 또는 JSON 시 body 부분에 request 가 붙는다
 router.post("/", (req,res) => { 
-  let sql = `insert into customer set ?`;
-  let name = req.body.name;
-  let email = req.body.email;
-  let phone = req.body.phone;
-  
-  mysql.query("customerInsert").then((result) => res.send(result));
+
+  mysql.query("customerInsert", req.body ).then((result) => res.send(result));
 });
 
 
 //put : 수정 
 // post 방식 또는 JSON 시 body 부분에 request 가 붙는다
 router.put("/:id", (req, res) => {
-  let id = req.params.id;
-  let sql = `
-            update customer
-            set ?
-            where id = ?
-            `;
 
-  mysql.query("customerUpdate", [data, id]).then((result) => res.send(result));
+  mysql.query("customerUpdate", [req.body, id]).then((result) => res.send(result));
 });
 
 //delete : 삭제
 router.delete("/:id", (req, res) => {
   let id = req.params.id;
- 
   mysql.query("customerDelete", [id]).then((result) => res.send(result));
   });
 

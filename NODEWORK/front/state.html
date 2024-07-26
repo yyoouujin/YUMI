@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>state.html</title>
+</head>
+<body>
+  <!-- react cdn 추가 -->
+  <script src="https://unpkg.com/react/umd/react.development.js"></script> 
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script> 
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+  <div id="root"></div> 
+
+  <script type="text/babel">
+
+
+  function MyButton({label}) {
+
+    //지역변수, 실행마다 초기화(따로 증가 확인)
+    const [count, setCount] = React.useState(0); 
+    function handleClick() {
+      setCount(count + 1);
+    }
+    //-> const 부터 handleClick까지 MyButton 바깥쪽에 선언하면 버튼 클릭 시 모든 카운트가 함게올라감
+
+    return (
+      <button onClick={handleClick} >
+        내 속 {label} {count} 번 터지는 중
+      </button>
+    );
+
+}
+
+  const element = (
+    <div>
+      <MyButton label="퍼버버벙" />
+      <h1>hello</h1>
+      <MyButton label="콰가가광" />
+    </div>
+    );
+
+  const domContainer = document.querySelector("#root");
+  //가상 돔에 내가 만든 태그를 그려줘라
+  const root = ReactDOM.createRoot(domContainer); 
+  root.render(element);
+  /*
+  바로 넣어줘도 상관없다(길어지면 변수를 활용
+  root.render(<h1>hello</h1>);
+  */
+  </script>
+
+
+
+<script>
+
+  /*
+  8)
+  화면 업데이트
+   : useState
+  const [count(변수이름), setCount(함수명)] = useState(0) -> 초깃값;
+
+  9)
+  porp 값 읽기
+
+  월요일엔 CLR 방식!
+
+
+  */
+</script>
+
+  
+</body>
+</html>

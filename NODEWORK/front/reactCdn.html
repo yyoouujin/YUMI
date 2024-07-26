@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- 웹사이트에 React 추가 -->
+
+<script src="https://unpkg.com/react/umd/react.development.js"></script> 
+<script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script> 
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+<div id="root"></div> 
+
+<script type="text/babel">
+  
+  const products = [
+                    { title: 'Cabbage', id: 1 },
+                    { title: 'Garlic', id: 2 },
+                    { title: 'Apple', id: 3 },
+                  ];
+
+  const customerData = [
+  {
+    "id": 10,
+    "name": "yjin",
+    "email": "test update",
+    "phone": "010-1111-1111",
+    "adress": null
+  },
+  {
+    "id": 13,
+    "name": "채유진",
+    "email": "yujin@gmial.com",
+    "phone": "010-9483-2184",
+    "adress": null
+  },
+  {
+    "id": 14,
+    "name": "채유진",
+    "email": "yujin@gmial.com",
+    "phone": "010-9483-2184",
+    "adress": null
+  },
+  {
+    "id": 16,
+    "name": "채유진",
+    "email": "yujin@gmial.com",
+    "phone": "010-9483-2184",
+    "adress": null
+  },
+  {
+    "id": 22,
+    "name": "나지연",
+    "email": "nybeauty@naver.com",
+    "phone": "010-1234-5678",
+    "adress": null
+  },
+  {
+    "id": 23,
+    "name": "김수연",
+    "email": "suy2233@naver.com",
+    "phone": "010-6670-7387",
+    "adress": null
+  },
+  {
+    "id": 26,
+    "name": "김수연",
+    "email": "suy2233@naver.com",
+    "phone": "010-6670-7387",
+    "adress": null
+  },
+  {
+    "id": 32,
+    "name": "수정짜잔",
+    "email": "modifywow",
+    "phone": "석류짭짭",
+    "adress": "머싯겟당"
+  },
+  {
+    "id": 33,
+    "name": "무야호",
+    "email": "퀸석류",
+    "phone": "삼송빵집",
+    "adress": "주소"
+  },
+  {
+    "id": 34,
+    "name": "수정",
+    "email": "수정",
+    "phone": "수정",
+    "adress": "수정"
+  },
+  {
+    "id": 35,
+    "name": "다들 오점뭐",
+    "email": "커피 마싯덩",
+    "phone": "chop yjin",
+    "adress": "어드레스부르소"
+  }
+];
+
+  const imgyn = false;
+  const name = 'save';
+  const imgsrc = { name:"힘들어요", src:"모코코.jpg", desc:"강아지" };
+  const imgstyle = { width:"500px", border:"1px solid", height:"500px" };
+
+
+  function Customer(){
+    let [data, setData] = React.useState([]);
+    React.useEffect(async () => {
+      let result = await fetch("http://localhost:3000/customer");
+      let customerData = await result.json();
+      setData(customerData);
+    }, []);
+
+    function addCustomer(){
+      setData([...data, {id:1, name:'유진'}]);
+
+    }
+    return (
+      <div>
+      <button onClick={addCustomer}>추가</button>
+      <table>
+        {data.map((ele, idx) => (
+                          <tr key={idx}>
+                            <td>{ele.id}</td>
+                            <td>{ele.name}</td>
+                            <td>{ele.email}</td>
+                            <td>{ele.phone}</td>
+                            <td>{ele.adress}</td>
+                          </tr>)
+                        )}
+      </table>
+      </div>
+    )
+    }
+  //버튼 함수 추가 : 
+  function MyButton() {
+    function handler() {
+    alert('클릭띠');
+  }
+    return ( <button className="avatar" onClick={handler}>I'm a button {name}</button> );
+  }
+
+  function MyImage() {
+    return (
+      <div>
+      <p>{imgsrc.name}</p>
+      <img src={imgsrc.src} style={imgstyle}></img>
+      </div>
+    );
+  }
+
+  // let iis = porducts.map~
+  const element = (
+
+    <div>
+      <MyButton/>
+      {imgyn ? <MyImage /> : <MyButton/>}
+      <MyImage />
+      <h1>낼롱</h1>
+      <ul>
+        {products.map((ele, idx) => (<li key="idx">{ele.title}</li>))}
+      </ul>
+      <Customer />
+    </div>
+
+  );
+
+  const domContainer = document.querySelector("#root");
+  // ReactDOM.render(element, domContainer); <-- React 17
+  const root = ReactDOM.createRoot(domContainer); // <-- React 18
+  root.render(element); 
+
+</script> 
+
+<script>
+  /*
+  React ?
+    : 사용자 정의 태그를 만드는 기술!
+
+  react 에서는 가상돔을 사용!
+  ->
+  react 엔진 자체가 가상DOM을 제어해준다
+  data만 넣어주면 DOM을 rendering 해준다! (data 는 배열로 넘어온다!)
+
+
+
+  https://ko.react.dev/learn
+  1)
+  컴포넌트 생성 및 중첩
+  : 함수를 태그처럼 사용 가능 (최상위 루트노드가 필요하다 : 빈 꺽쇠라도 적어라)
+  함수는 무조건 대문자로 적어라 (사용자 정의 태그를 구분하기 위함!)
+  태그가 여러개라면 ()로 묶어주기
+
+  2)
+  스타일 추가
+   : 직접적으로 class 추가는 불가능(jsx 문법)
+   string 또는 객체도 가능!
+  <img className="avatar" />
+  
+  3)
+  데이터 추가
+   : 이스케이프 백
+   중괄호를 사용하면 변수처럼 사용이 가능
+  {user.name}
+
+  4)
+  조건문(삼항연산자 사용)
+   : true 면 이미지가 보이도록, false 면 버튼
+
+  5)
+  반복문(map 사용)
+
+  6)
+  key 값 전달하기
+
+  7)
+  이벤트 처리
+   : on 뒤에 대문자로! ex) onClick
+
+  8)
+  화면 업데이트
+   : useState
+    const [count(변수이름), setCount(함수명)] = useState(0) ->;
+  */
+</script>
+
+</body>
+</html>

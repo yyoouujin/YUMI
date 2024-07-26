@@ -15,7 +15,9 @@ const userRouter = require("./routes/user.js");
 const productRouter = require("./routes/product.js");
 const loginRouter = require("./routes/login.js");
 const customerRouter = require("./routes/customer.js");
-const productPoolRouter = require("./routes/product_pool.js");
+const customerPoolRouter = require("./routes/customer_pool.js");
+
+//const productPoolRouter = require("./routes/product_pool.js");
 
 //cors : 모든 도메인 허용
 const cors = require('cors') 
@@ -91,7 +93,7 @@ app.use(
       //secure: true, 
       maxAge: 3600000, //1시간
     }, 
-    store: new fileStore(), 
+    //store: new fileStore(), 
   }) 
 ); 
 
@@ -145,7 +147,8 @@ app.use("/member",userRouter);
 app.use("/product",productRouter);
 app.use("/user", loginRouter);
 app.use("/customer", customerRouter);
-app.use("/productpool", productPoolRouter);
+app.use("/customerPool", customerPoolRouter);
+
 
 
 app.get("/", (req, res) => {
