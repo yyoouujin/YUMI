@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+
+
+
+<!--[ReactJS01_컴포넌트] p.13 CDN 기본 틀 복붙! -->
+<script src="https://unpkg.com/react/umd/react.development.js"></script> 
+<script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script> 
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+<div id="root"></div> 
+<script type="text/babel"> 
+
+
+/*
+https://www.w3schools.com/html/tryit.asp?filename=tryhtml_layout_float
+w3school layout 스타일 복붙!
+layout 컴포넌트화
+  컴포넌트 ? :  프로그래밍에 있어 재사용이 가능한 각각의 독립된 모듈
+  소프트웨어의 재사용의 중요성과 필요성을 위해 나온 기술
+*/
+function Header() {
+  return (
+    <header>
+      <h2>Cities</h2>
+    </header>
+  );
+}
+
+function Nav() {
+  return (
+    <nav>
+    <ul>
+      <li><a href="#">London</a></li>
+      <li><a href="#">Paris</a></li>
+      <li><a href="#">Tokyo</a></li>
+    </ul>
+  </nav>
+  );
+}
+
+function Article() {
+  return (
+    <article>
+    <h1>London</h1>
+    <p>London is the capital city of England. It is the most populous city in the  United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
+    <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium.</p>
+  </article>
+  );
+}
+
+function Section() {
+  return (
+    <section>
+      <Nav />
+      <Article />
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <p>Footer</p>
+    </footer>
+  );
+}
+
+const element = (
+                <div>
+                  <Header / >
+                  <Section />
+                  <Footer />
+                </div>
+                );
+const domContainer = document.querySelector("#root"); 
+const root = ReactDOM.createRoot(domContainer);
+root.render(element); 
+
+</script> 
+  
+</body>
+</html>
