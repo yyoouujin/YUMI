@@ -11,7 +11,7 @@ const PRODUCTS = [
     {category: "Vegetables", price: "$2", stocked: true, name: "Spinach"},
     {category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin"},
     {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
-];
+  ];
 
 
 //초록색
