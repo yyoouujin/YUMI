@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-//import App from './App';
+import App from './App';
 //import App from './Condition';
-//import App from './Book';
-//import App from './EffectComponent';
-import App from './CustomerComponent';
 import reportWebVitals from './reportWebVitals';
 
 //public 폴더 내 index.html 내 #root
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  //<React.StrictMode>
+  <React.StrictMode>
     <App />
-  //</React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

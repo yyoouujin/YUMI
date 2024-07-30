@@ -9,7 +9,7 @@ morgan -> son, urlencoded -> cookieParser -> 라우터 -> 404처리 미들웨어
 
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 80;
 //따로 만든 라우터를 넣어준다
 const userRouter = require("./routes/user.js");
 const productRouter = require("./routes/product.js");
