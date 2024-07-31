@@ -29,7 +29,7 @@ router.post("/", (req,res) => {
 //put : 수정 
 // post 방식 또는 JSON 시 body 부분에 request 가 붙는다
 router.put("/:id", (req, res) => {
-
+  let id = req.params.id;
   mysql.query("customerUpdate", [req.body, id]).then((result) => res.send(result));
 });
 

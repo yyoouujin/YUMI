@@ -58,14 +58,8 @@ export default function BoardList () {
       {[...Array(lastPage)].map( (p) => (
         <Link to={"/boardlist?page="+p}>{p}</Link>
        ))}
+    <Link to="/boardlist?page=1">1</Link>
+    <Link to="/boardlist?page=2">2</Link>
     </div>
   );
 }
-
-/*
-    <div>
-      <Link to="/boardlist?page=1">1</Link>
-      <Link to="/boardlist?page=2">2</Link>
-      <Link to="/boardlist?page=3">3</Link>
-    </div>
-*/
