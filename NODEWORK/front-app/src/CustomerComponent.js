@@ -1,6 +1,5 @@
 import CustomerList from './CustomerList';
-//import CustomerUpdate from './CustomerUpdate';
-import CustomerUpdate2 from './CustomerUpdate_copy';
+import CustomerUpdate from './CustomerUpdate';
 import { useState } from "react"; //아이디값을 공유
 /*
 리액트용 부트스트랩 : https://react-bootstrap.netlify.app/
@@ -24,7 +23,7 @@ export default function CustomerComponent() {
             <CustomerList onClick={(_id) => {setId(_id);}} />
           </Col>
           <Col>
-            <CustomerUpdate2  id={id} />
+            <CustomerUpdate id={id} />
           </Col>
         </Row>
       </Card>

@@ -16,6 +16,7 @@ const productRouter = require("./routes/product.js");
 const loginRouter = require("./routes/login.js");
 const customerRouter = require("./routes/customer.js");
 const customerPoolRouter = require("./routes/customer_pool.js");
+const boardRouter = require("./routes/board.js");
 
 //const productPoolRouter = require("./routes/product_pool.js");
 
@@ -148,7 +149,7 @@ app.use("/product",productRouter);
 app.use("/user", loginRouter);
 app.use("/customer", customerRouter);
 app.use("/customerPool", customerPoolRouter);
-
+app.use("/board", boardRouter);
 
 
 app.get("/", (req, res) => {

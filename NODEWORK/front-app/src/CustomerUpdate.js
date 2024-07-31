@@ -1,58 +1,44 @@
 import { useState, useEffect } from "react";
+import {Button} from 'react-bootstrap';
 
 export default function CustomerUpdate (props) {
 
-
-  let [number, setNumber] = useState(10);
-  let url = "http://localhost/customer"+number;
   let [customer, setCustomer] = useState([]);
 
-  function Input() {
-    return (
-      <form onSubmit={(event) => {
-        event.preventDefault();
-      }}>
-        <input type="text" name="customernum" />
-        <input type="submit" value="조회" />
-      </form>
-    )
-  }
+  let url = "http://localhost/customer/" + props.id;
 
   function callAPI() {
-    if(!props.id){
+    if(!props.id) {
       return;
     }
     fetch(url)
     .then(response => response.json())
     .then(json => {
-      console.log(json);
-      setCustomer(json);
+      setCustomer(json[0]);
     })
   }
 
   useEffect( () => {
     callAPI();
     return () => {
-      console.log('실행끗');
+      console.log('전체조회');
     }
-  }, [number] );
-
-
-  function OneCustomer({customer}) {
-
-    return (
-      customer.map ( (ele, idx) => {
-        let result = (<p key={idx}> name : {ele.name} / phone : {ele.phone} / email : {ele.email} / adress : {ele.adress} </p>);
-        return result;
-      } )
-    );
-  }
+  }, [props.id] );
 
   return (
-    <div>
-      <Input />
-      <OneCustomer customer={customer} />
-    </div>
+    <form>
+      <div>
+        <Button type="reset" className="btn-primary">초기화</Button>
+        <Button type="button" className="btn-danger">삭제</Button>
+        <Button type="submit" className="btn-success">저장</Button>
+      </div>
+      <div>
+        <input value={customer.id}></input><br></br>
+        <input value={customer.email}></input><br></br>
+        <input value={customer.phone}></input><br></br>
+        <input value={customer.name}></input><br></br>
+      </div>
+    </form>
   );
 
 }

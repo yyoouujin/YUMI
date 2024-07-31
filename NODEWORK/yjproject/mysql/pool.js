@@ -2,9 +2,11 @@
 const mysql = require("mysql2");
 const customersql = require("./customer_sql");
 const productsql = require("./product_sql");
+const boardsql = require("./board_sql.js");
+
 
 //sql 을 모두 가져와서 저장
-const sql = {...customersql, ...productsql};
+const sql = {...customersql, ...productsql, ...boardsql};
 
 // mysql 접속정보
 const conn = { host: "127.0.0.1",

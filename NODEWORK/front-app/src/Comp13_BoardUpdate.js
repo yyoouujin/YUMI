@@ -1,30 +1,33 @@
 import { useState, useEffect } from "react";
 import {Button} from 'react-bootstrap';
+import { useParams } from "react-router-dom";
 
-export default function CustomerUpdate2 (props) {
+export default function BoardUpdate () {
 
-  let [customer, setCustomer] = useState([]);
+  const{seq} = useParams();
+  let [board, setBoard] = useState([]);
 
-  let url = "http://localhost/customer/" + props.id;
+
+  let url =  "http://localhost/board/" + seq;
 
   function callAPI() {
-    if(!props.id) {
-      return;
-    }
+
     fetch(url)
     .then(response => response.json())
     .then(json => {
-      setCustomer(json[0]);
+      setBoard(json[0]);
     })
   }
 
   useEffect( () => {
     callAPI();
     return () => {
-      console.log('실행끗');
+      //console.log("수정");
     }
-  }, [props.id] );
+  }, [seq]);
 
+
+  
   return (
     <form>
       <div>
@@ -33,12 +36,11 @@ export default function CustomerUpdate2 (props) {
         <Button type="submit" className="btn-success">저장</Button>
       </div>
       <div>
-        <input value={customer.id}></input><br></br>
-        <input value={customer.email}></input><br></br>
-        <input value={customer.phone}></input><br></br>
-        <input value={customer.name}></input><br></br>
+        <input type="text" value={board.title}></input><br></br>
+        <input type="text" value={board.content}></input><br></br>
+        <input type="text" value={board.wdt}></input><br></br>
+        <input type="text" value={board.writer}></input><br></br>
       </div>
     </form>
   );
-
 }
