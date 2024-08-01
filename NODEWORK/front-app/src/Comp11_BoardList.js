@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {Button} from 'react-bootstrap';
-
+import { PaginationItem, Pagination, PaginationLink } from "reactstrap";
 
 function Board ( {boards} ){
 
@@ -49,16 +49,32 @@ export default function BoardList () {
     }
   }, [page]);
 
+/*
+{[...Array(lastPage)].map( (ele,p) => (
+   <Link to={"/boardlist?page="+p}>{p}</Link>
+))}
 
-  return (
+*/
+
+return (
     <div>
       <h2>Board List</h2>
       <Board boards={boards} />
       <Link to='/boardinsert'><Button className="btn-dark">글쓰기</Button></Link>
-      {[...Array(lastPage)].map( (p) => (
-        <Link to={"/boardlist?page="+p}>{p}</Link>
-       ))}
+    
+        <Pagination>
+            <PaginationLink first href="#" />
+            <PaginationLink href="#" previous />
+              {[...Array(lastPage)].map( (ele,p) => (
+                <PaginationItem>
+                <PaginationLink href={"/boardlist?page="+p}>{p}</PaginationLink>
+                </PaginationItem>
+              ))}
+        </Pagination>
+
     </div>
+
+    
   );
 }
 
@@ -69,3 +85,55 @@ export default function BoardList () {
       <Link to="/boardlist?page=3">3</Link>
     </div>
 */
+
+/*
+
+<Pagination>
+  <PaginationItem>
+    <PaginationLink
+      first
+      href="#"
+    />
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#" previous />
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#">1</PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#">
+      2
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#">
+      3
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#">
+      4
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink href="#">
+      5
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink
+      href="#"
+      next
+    />
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink
+      href="#"
+      last
+    />
+  </PaginationItem>
+</Pagination>
+      
+*/
+

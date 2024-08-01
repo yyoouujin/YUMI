@@ -3,11 +3,13 @@ import BoardInfo from "./Comp12_BoardInfo";
 import BoardUpdate from "./Comp13_BoardUpdate";
 import BoardInsert from "./Comp14_BoardInsert";
 
-import { Routes, Route, NavLink } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route, NavLink, useRoutes } from "react-router-dom";
+//import route from "./route/index";
+
 
 export default function App () {
 
+  //const routes = useRoutes(route);
 
   return (
     <div>
@@ -29,3 +31,12 @@ export default function App () {
     </div>
   );
 }
+
+/*
+      <Routes>
+        <Route path="/boardlist" element={<BoardList />}></Route>
+        <Route path="/boardinfo/:seq" element={<BoardInfo />}></Route>
+        <Route path="/boardinsert" element={<BoardInsert />}></Route>
+        <Route path="/boardupdate/:seq" element={<BoardUpdate />}></Route>
+      </Routes>
+*/

@@ -1,7 +1,10 @@
-import Replys from './Reply';
+//import Replys from './Reply';
 //조건부 렌더링 :https://ko.react.dev/learn/conditional-rendering
 
 //export default function Item() : 내보낼 함수가 하나밖에 없으면 바로 붙여도된다 (export default Item;)
+
+import { useContext } from "react";
+import { LoginContext } from "./context";
 
 function Item({ name, isPacked }) {
   /*
@@ -30,7 +33,7 @@ function Item({ name, isPacked }) {
 }
 
 function Items( {todos} ) {
-
+  const login = useContext(LoginContext); //바뀐 id로 읽어온다
   /*
   1)
   const item = todos.map( (ele) =>  <Item name={ele.name} isPacked={ele.isPacked} />  );
@@ -45,11 +48,19 @@ function Items( {todos} ) {
 
   //3) key 값 idx로 주기
   const item = todos.map( (ele, idx) => ( <Item key={idx} {...ele} /> ) );
-  return <>{item}</>;
+  return (
+  <div>
+    <h2>바뀐아이디 : {login.userid}</h2>
+    {item}
+  </div>);
 
 }
 
 export default function PackingList() {
+
+  //useContext 사용은 함수 최상단에!
+  const login = useContext(LoginContext);
+
 
   let todos=[
     {name:"Space sui", isPacked: true },
@@ -66,13 +77,19 @@ export default function PackingList() {
   return (
     <section>
       <h1>Sally Ride's Packing List</h1>
-      <ul>
-        <Items todos={todos} />
-      </ul>
+      <h1>로그인 : { login.userid }</h1>
+      <LoginContext.Provider value = {{userid:"쿠키런으로바꿔"}}>
+        <ul>
+          <Items todos={todos} />
+        </ul>
+      </LoginContext.Provider>
       <h2>댓글리스트</h2>
-      <Replys datas={replyList} />
+
     </section>
   );
 }
 
 
+/*
+      <Replys datas={replyList} />
+*/

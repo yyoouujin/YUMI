@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './Comp10_BoardComponent';
+
+//import App from './Comp11_Context';
+import App from './Comp14_ReduxToolkit';
+//import App from './Comp10_BoardComponent';
+
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //public 폴더 내 index.html 내 #root
 const root = ReactDOM.createRoot(document.getElementById('root'));

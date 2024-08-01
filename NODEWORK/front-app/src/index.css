@@ -3,3 +3,17 @@
   background-color: tomato;
   text-decoration: none;
 }
+
+.root{
+  border: 10px solid green;
+  margin: 10px;
+  padding: 10px;
+  color: green;
+}
+
+.root div{
+  border: 10px solid tomato;
+  margin: 10px;
+  padding: 10px;
+  color: green;
+}
