@@ -1,6 +1,6 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-//count Store
+//count reduce
 const counterSlice = createSlice({
   name:'counterSlice',
   initialState:{count:0},
@@ -17,7 +17,7 @@ const counterSlice = createSlice({
 });
 
 
-//login Store
+//login reduce
 const loginSlice = createSlice({
   name:"loginSlice",
   initialState:{username:"유진", email:"yyoouujin"},
@@ -30,6 +30,7 @@ const loginSlice = createSlice({
 });
 
 
+//store 내 reduce 등록!(reducer 내 지정된 이름으로 바로 사용가능)
 let store = configureStore({
   reducer:{ 
     counter:counterSlice.reducer,
@@ -38,3 +39,9 @@ let store = configureStore({
 });
 
 export {counterSlice, store, loginSlice};
+
+
+/*
+redux를 여러개 사용하기 위함 redux-toolkit
+
+*/

@@ -46,6 +46,8 @@ function Left2() {
 }
 
 function Left3() {
+  //useSelector: state의 값을 사용!
+
   const number = useSelector((state) => state.number);
   return (
     <div>
@@ -102,7 +104,7 @@ export default function App() {
     <div id="container">
       <h1>Root</h1>
         <div id="grid">
-          <Provider store={store}> 
+          <Provider store={store}>
             <Left1></Left1>
             <Rigth1></Rigth1>
           </Provider>
@@ -110,3 +112,10 @@ export default function App() {
     </div>
   );
 }
+
+/*
+store : reduce를 좀 더 편하게 관리하기 위함!
+provide 된 하위 컴포넌트는 모두 store 에 접근할 수 있따!
+<Provider store={store}>
+
+*/

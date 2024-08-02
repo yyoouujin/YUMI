@@ -24,8 +24,6 @@ let login = {userid:"채유진", isLogin:true};
 const loginContext = createContext(login);
 
 
-
-
 export default function LayoutComponent(args) {
 
   const routes = useRoutes(route);

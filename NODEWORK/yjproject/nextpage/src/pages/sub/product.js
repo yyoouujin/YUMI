@@ -1,4 +1,4 @@
-import './Market.css';
+//import './Market.css';
 import { useState } from 'react';
 
 function MarketList() {
@@ -25,7 +25,6 @@ function FilterableProductTable({ products }) {
     <div>
       <SearchBar filterText={filterText} inStockOnly={inStockOnly} onFilterTextChange={setFilterText} onInStockOnlyChange={setInStockOnly} />
       <ProductTable products={products} filterText={filterText} inStockOnly={inStockOnly} />
-      
     </div>
   );
 }
@@ -131,7 +130,7 @@ export default function App() {
     <div className="App">
       <MarketList />
       <FilterableProductTable products={PRODUCTS} />
-      
+      <a href="/">pages/index.js</a>
     </div>
   );
 }

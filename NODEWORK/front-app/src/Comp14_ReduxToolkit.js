@@ -26,13 +26,12 @@ function MyPage() {
   
   return (
     <div>
-      {/* <input type="text" onChange={(event) =>{ dispatch({type:"loginSlice/setUsername", username : event.target.value})}} /> */}
       <input onChange={(event) =>{
         setInpval(event.target.value);
       }} ></input>
       <button onClick={() => {
+        //type:"명령", 전달할 내용
         dispatch({type:"loginSlice/setUsername", username:inpval})
-        //dispatch(loginSlice.actions.setUsername(input));
       }}>클릭</button>
       <h1>username : {name}</h1>
       <h1>email : {email}</h1>
@@ -56,6 +55,9 @@ export default function App() {
 
 
 /*
+<input type="text" onChange={(event) =>{ dispatch({type:"loginSlice/setUsername", username : event.target.value})}} />
+
+
 dispatch({type:"loginSlice/setUsername", username:event.target.value}
 */
 
@@ -63,6 +65,9 @@ dispatch({type:"loginSlice/setUsername", username:event.target.value}
 /*
 
 [p.226] : reduce
+
+컴포넌트 내에서만 사용 시 state 사용이 더 좋다!
+
 
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { legacy_createStore as createStore } from "redux";
@@ -128,7 +133,7 @@ const userSlice = createSlice({
 
 
 /*
-[p.232] : redux
+[p.232] : redux -> 여러개 사용 (redux-toolkit!)
 
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { createSlice, configureStore } from '@reduxjs/toolkit';
